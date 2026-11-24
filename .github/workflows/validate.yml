@@ -1,0 +1,26 @@
+name: validate-skill
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install openpyxl
+      - name: Catalog is in sync with the spreadsheet
+        run: |
+          python scripts/_build_catalog.py assets/source-checklist.xlsx /tmp/catalog.json
+          diff <(python -c "import json;print(json.dumps(json.load(open('/tmp/catalog.json')),sort_keys=True))") \
+               <(python -c "import json;print(json.dumps(json.load(open('references/catalog.json')),sort_keys=True))")
+      - name: Self-test scanners against the local demo target
+        run: |
+          python tests/vulnerable_app.py 8099 &
+          sleep 1
+          python scripts/scan_web.py --url http://127.0.0.1:8099 --active --burst 20 --out /tmp/fw.json
+          python scripts/scan_code.py --path tests/sample_repo --no-tools --out /tmp/fc.json
+          python tests/check_expectations.py /tmp/fw.json /tmp/fc.json
+          python scripts/generate_report.py --findings /tmp/fw.json /tmp/fc.json --lang both --outdir /tmp/rep
