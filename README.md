@@ -57,3 +57,6 @@ Edit checks in `scripts/_build_catalog.py`, then rebuild `references/catalog.jso
 ## License
 
 MIT
+
+## Contribute
+See [CONTRIBUTING.md](CONTRIBUTING.md) to contribute.
