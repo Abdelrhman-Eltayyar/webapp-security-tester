@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: code-scan-full-report
+expected_outcome: |
+  Runs scan_code.py, generates a bilingual report listing all 30 checks, flags secrets, SQL concatenation, debug mode, MD5 and CI risks, and lists items needing manual testing.
