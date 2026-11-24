@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+work/
+report/
+findings-*.json
+manual.json
+.env
+*.skill
