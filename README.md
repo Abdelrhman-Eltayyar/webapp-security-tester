@@ -15,7 +15,7 @@ It combines:
 
 **Claude Code:**
 ```bash
-git clone https://github.com/<you>/webapp-security-tester ~/.claude/skills/webapp-security-tester
+git clone https://github.com/Abdelrhman-Eltayyar/webapp-security-tester ~/.claude/skills/webapp-security-tester
 ```
 
 ## Use
